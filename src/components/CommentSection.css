@@ -1,0 +1,139 @@
+.comments {
+  margin-top: 2.5rem;
+}
+
+.comments__heading {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--border);
+}
+
+.comments__form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.comments__textarea {
+  width: 100%;
+  min-height: 90px;
+  padding: 0.75rem;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 16px;
+  resize: vertical;
+  transition: border-color 0.2s;
+  background: var(--bg);
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.comments__textarea:focus {
+  outline: none;
+  border-color: var(--border-focus);
+}
+
+.comments__submit {
+  align-self: flex-end;
+  padding: 0.6rem 1.25rem;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: background 0.15s;
+  min-height: 44px;
+}
+
+.comments__submit:hover:not(:disabled) {
+  background: var(--primary-dark);
+}
+
+.comments__submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.comments__error {
+  font-size: 0.875rem;
+  color: var(--danger);
+}
+
+.comments__empty {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  padding: 1rem 0;
+}
+
+.comment {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.comment:last-child {
+  border-bottom: none;
+}
+
+.comment__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.comment__author {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.comment__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.comment__date {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.comment__delete {
+  background: none;
+  border: none;
+  color: var(--danger);
+  font-size: 0.78rem;
+  padding: 0;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.15s;
+  min-height: 32px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.comment__delete:hover {
+  opacity: 1;
+}
+
+.comment__body {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--text);
+}
+
+/* ── Mobile ── */
+@media (max-width: 480px) {
+  .comments__submit {
+    /* Full width on small screens so it's easy to tap */
+    align-self: stretch;
+  }
+}

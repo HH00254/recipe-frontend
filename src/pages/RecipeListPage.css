@@ -1,0 +1,150 @@
+.recipe-list-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.recipe-list-page__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+
+.recipe-list-page__title {
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+.recipe-list-page__controls {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.recipe-list-page__search {
+  padding: 0.65rem 0.9rem;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 16px;
+  width: 220px;
+  transition: border-color 0.2s;
+  background: var(--bg-card);
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.recipe-list-page__search:focus {
+  outline: none;
+  border-color: var(--border-focus);
+}
+
+.recipe-list-page__filter-btn {
+  padding: 0.55rem 0.9rem;
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  background: var(--bg-card);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+  /* Ensure tappable on mobile */
+  min-height: 36px;
+}
+
+.recipe-list-page__filter-btn:hover,
+.recipe-list-page__filter-btn--active {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: var(--primary-light);
+}
+
+.recipe-list-page__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+
+.recipe-list-page__empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--text-muted);
+}
+
+.recipe-list-page__empty-icon {
+  font-size: 3rem;
+  margin-bottom: 0.75rem;
+}
+
+.recipe-list-page__empty-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+
+.recipe-list-page__loading {
+  text-align: center;
+  padding: 4rem;
+  color: var(--text-muted);
+}
+
+.recipe-list-page__controls--filters {
+  margin-bottom: 1.25rem;
+  /* Allow horizontal scroll on mobile for tag pills */
+  overflow-x: auto;
+  flex-wrap: nowrap;
+  padding-bottom: 4px;
+  /* Hide scrollbar visually */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.recipe-list-page__controls--filters::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Tablet ── */
+@media (max-width: 768px) {
+  .recipe-list-page {
+    padding: 1.25rem;
+  }
+
+  .recipe-list-page__grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1rem;
+  }
+}
+
+/* ── Mobile ── */
+@media (max-width: 480px) {
+  .recipe-list-page {
+    padding: 1rem;
+  }
+
+  .recipe-list-page__header {
+    margin-bottom: 1rem;
+  }
+
+  .recipe-list-page__title {
+    font-size: 1.4rem;
+  }
+
+  .recipe-list-page__search {
+    width: 100%;
+  }
+
+  .recipe-list-page__controls {
+    width: 100%;
+  }
+
+  .recipe-list-page__grid {
+    /* Single column on small phones */
+    grid-template-columns: 1fr;
+  }
+}

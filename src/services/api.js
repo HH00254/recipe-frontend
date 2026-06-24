@@ -1,6 +1,6 @@
 // In development Vite exposes VITE_API_URL from .env.local
 // In production Vercel injects it as a build-time env var
-const BASE = ("https://web-production-a887.up.railway.app" || "http://localhost:8000") + "/api";
+const BASE = (import.meta.env.VITE_API_URL || "http://localhost:8000") + "/api";
 
 function authHeaders(token) {
   return {

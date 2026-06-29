@@ -12,15 +12,15 @@ import "./RecipeDetailPage.css";
 
 export default function RecipeDetailPage() {
   const { id } = useParams();
-  const { token } = useAuth();
+  const { token, user } = useAuth();
   const navigate = useNavigate();
   const fileRef = useRef(null);
 
-  const [recipe, setRecipe] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [recipe, setRecipe]           = useState(null);
+  const [loading, setLoading]         = useState(true);
+  const [error, setError]             = useState("");
   const [uploadStatus, setUploadStatus] = useState("");
-  const [deleting, setDeleting] = useState(false);
+  const [deleting, setDeleting]       = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -29,6 +29,9 @@ export default function RecipeDetailPage() {
       .catch(() => setError("Recipe not found."))
       .finally(() => setLoading(false));
   }, [token, id]);
+
+  // True when the logged-in user owns this recipe
+  const isOwner = user && recipe && user.email === recipe.user_email;
 
   async function handleDelete() {
     if (!window.confirm("Delete this recipe? This cannot be undone.")) return;
@@ -75,42 +78,49 @@ export default function RecipeDetailPage() {
         <div className="recipe-detail-page__hero-placeholder">🍳</div>
       )}
 
-      <div className="recipe-detail-page__upload">
-        <input
-          ref={fileRef}
-          type="file"
-          accept="image/*"
-          className="recipe-detail-page__upload-input"
-          onChange={handleImageUpload}
-        />
-        <span
-          className="recipe-detail-page__upload-label"
-          onClick={() => fileRef.current.click()}
-        >
-          {recipe.image ? "Change image" : "Upload image"}
-        </span>
-        {uploadStatus && (
-          <span className="recipe-detail-page__upload-status">{uploadStatus}</span>
-        )}
-      </div>
+      {/* Only show upload button to the recipe owner */}
+      {isOwner && (
+        <div className="recipe-detail-page__upload">
+          <input
+            ref={fileRef}
+            type="file"
+            accept="image/*"
+            className="recipe-detail-page__upload-input"
+            onChange={handleImageUpload}
+          />
+          <span
+            className="recipe-detail-page__upload-label"
+            onClick={() => fileRef.current.click()}
+          >
+            {recipe.image ? "Change image" : "Upload image"}
+          </span>
+          {uploadStatus && (
+            <span className="recipe-detail-page__upload-status">{uploadStatus}</span>
+          )}
+        </div>
+      )}
 
       <div className="recipe-detail-page__header">
         <h1 className="recipe-detail-page__title">{recipe.title}</h1>
-        <div className="recipe-detail-page__actions">
-          <button
-            className="btn-secondary"
-            onClick={() => navigate(`/recipes/${id}/edit`)}
-          >
-            ✏️ Edit
-          </button>
-          <button
-            className="btn-danger"
-            onClick={handleDelete}
-            disabled={deleting}
-          >
-            {deleting ? "Deleting…" : "🗑 Delete"}
-          </button>
-        </div>
+
+        {/* Only show edit/delete to the recipe owner */}
+        {isOwner && (
+          <div className="recipe-detail-page__actions">
+            <button
+              className="btn-secondary"
+              onClick={() => navigate(`/recipes/${id}/edit`)}
+            >
+              ✏️ Edit
+            </button>
+            <button
+              className="btn-danger"
+              onClick={handleDelete}
+              disabled={deleting}
+            >
+              {deleting ? "Deleting…" : "🗑 Delete"}
+            </button>
+          </div>
+        )}
       </div>
 
       <div className="recipe-detail-page__meta">
